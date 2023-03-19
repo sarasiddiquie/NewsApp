@@ -145,21 +145,19 @@ export class News extends Component {
     };
 
     render() {
+
         return (
             <div className='container my-3'>
                 <h2>NewsApp - promising the first news</h2>
                 <div className='row my-4'>
-                    <div className="col-md-4 "> <NewsItem title="my-news" description="This is my news"
-                        imageUrl="https://i.pinimg.com/236x/cb/3f/28/cb3f28539a652a06b1bb4e5d11101d36.jpg" newsUrl="TODO" /></div>
-                    <div className="col-md-4"> <NewsItem /></div>
-                    <div className="col-md-4"><NewsItem /></div>
+                    {this.state.articles.map((element) => {
+                        return <div className="col-md-4 " key={element.url}> <NewsItem title={element.title} description={element.description}
+                            imageUrl={element.urlToImage} newsUrl={element.url} /></div>
+                    })}
+
+
                 </div>
 
-                <div className='row my-4'>
-                    <div className="col-md-4"> <NewsItem /></div>
-                    <div className="col-md-4"> <NewsItem /></div>
-                    <div className="col-md-4"><NewsItem /></div>
-                </div>
 
 
 
