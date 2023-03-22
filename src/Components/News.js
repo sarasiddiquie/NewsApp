@@ -139,10 +139,42 @@ export class News extends Component {
         super()
         this.state = {
             articles: this.articles,
+            page: 1
 
         }
 
-    };
+    }
+
+    async componentDidMount() {
+        let url = "https://newsapi.org/v2/top-headlines?country=in&apiKey=19deffd14b4d48dd88ad1ebc39c0890e&page=1";
+        let data = await fetch(url);
+        let parsedData = await data.json();
+        console.log(parsedData);
+        this.setState({ articles: parsedData.articles });
+    }
+
+    PrevClick = async () => {
+        let url = `https://newsapi.org/v2/top-headlines?country=in&apiKey=19deffd14b4d48dd88ad1ebc39c0890e&page=${this.state.page - 1}`;
+        let data = await fetch(url);
+        let parsedData = await data.json();
+
+        this.setState({
+            page: this.state.page - 1,
+            articles: parsedData.articles
+        })
+    }
+
+    NextClick = async () => {
+
+        let url = `https://newsapi.org/v2/top-headlines?country=in&apiKey=19deffd14b4d48dd88ad1ebc39c0890e&page=${this.state.page + 1}`;
+        let data = await fetch(url);
+        let parsedData = await data.json();
+
+        this.setState({
+            page: this.state.page + 1,
+            articles: parsedData.articles
+        })
+    }
 
     render() {
 
@@ -158,7 +190,13 @@ export class News extends Component {
 
                 </div>
 
+                <div>
+                    <div className="container d-flex justify-content-between">
+                        <button type="button" disabled={this.state.page <= 1} className="btn btn-dark" onClick={this.PrevClick}>Previous</button>
+                        <button type="button" className="btn btn-dark" onClick={this.NextClick}>Next</button>
 
+                    </div>
+                </div>
 
 
             </div>
